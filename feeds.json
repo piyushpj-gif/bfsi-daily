@@ -1,0 +1,42 @@
+[
+  {
+    "name": "RBI Press Releases",
+    "url": "https://rbi.org.in/pressreleases_rss.xml",
+    "type": "direct"
+  },
+  {
+    "name": "Economic Times BFSI",
+    "url": "https://bfsi.economictimes.indiatimes.com/rss/recentstories",
+    "type": "direct"
+  },
+  {
+    "name": "Mint Money",
+    "url": "https://www.livemint.com/rss/money",
+    "type": "direct"
+  },
+  {
+    "name": "Mint Companies",
+    "url": "https://www.livemint.com/rss/companies",
+    "type": "direct"
+  },
+  {
+    "name": "Business Standard Finance",
+    "url": "https://www.business-standard.com/rss/finance-103.rss",
+    "type": "direct"
+  },
+  {
+    "name": "Asia Insurance Post",
+    "url": "https://www.asiainsurancepost.com/feed/",
+    "type": "direct"
+  },
+  {
+    "name": "Google News - IRDAI India",
+    "url": "https://news.google.com/rss/search?q=IRDAI+India&hl=en-IN&gl=IN&ceid=IN:en",
+    "type": "aggregator"
+  },
+  {
+    "name": "Google News - Insurance India",
+    "url": "https://news.google.com/rss/search?q=insurance+India&hl=en-IN&gl=IN&ceid=IN:en",
+    "type": "aggregator"
+  }
+]
