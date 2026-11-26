@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta, timezone
+import html
 import json
 from pathlib import Path
+import re
 from urllib.request import Request, urlopen
 
 import feedparser
@@ -9,6 +11,12 @@ import feedparser
 FEEDS_FILE = Path(__file__).resolve().parent / "feeds.json"
 USER_AGENT = "Mozilla/5.0 (compatible; bfsi-daily/1.0)"
 FEED_TIMEOUT_SECONDS = 15
+MAX_ITEMS_PER_SOURCE = 25
+MAX_SNIPPET_LENGTH = 300
+JUNK_TITLE_PATTERNS = (
+    re.compile(r"news by cnbc tv18 on tradingview", re.IGNORECASE),
+    re.compile(r"^news by .+ on tradingview\b", re.IGNORECASE),
+)
 
 
 def load_feeds(feeds_path: Path) -> list[dict]:
@@ -33,19 +41,55 @@ def get_entry_datetime(entry: dict) -> datetime | None:
     return datetime(*parsed[:6], tzinfo=timezone.utc)
 
 
-def collect_news(feeds: list[dict], hours: int = 24) -> dict[str, list[str]]:
-    """Fetch feeds, keep recent or undated items, and deduplicate by link or title."""
+def clean_title(raw_title: str) -> str:
+    """Unescape HTML entities and collapse extra whitespace in a title."""
+    return " ".join(html.unescape(raw_title or "").split())
+
+
+def clean_snippet(entry: dict, max_length: int = MAX_SNIPPET_LENGTH) -> str:
+    """Extract a plain-text description with HTML tags removed and capped length."""
+    raw_summary = entry.get("summary") or entry.get("description") or ""
+    if not raw_summary and entry.get("content"):
+        raw_summary = entry["content"][0].get("value", "")
+
+    text = html.unescape(raw_summary)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html.unescape(text)
+    text = " ".join(text.split())
+
+    if len(text) <= max_length:
+        return text
+    return text[: max_length - 3].rstrip() + "..."
+
+
+def is_junk_title(title: str) -> bool:
+    """Return True for empty titles or obvious boilerplate/aggregator junk."""
+    if not title:
+        return True
+    return any(pattern.search(title) for pattern in JUNK_TITLE_PATTERNS)
+
+
+def collect_news(
+    feeds: list[dict] | None = None,
+    hours: int = 24,
+) -> tuple[dict[str, list[str]], list[dict]]:
+    """Fetch feeds, filter recent unique items, and return grouped titles plus structured items."""
+    if feeds is None:
+        feeds = load_feeds(FEEDS_FILE)
+
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
     seen_links: set[str] = set()
     seen_titles: set[str] = set()
-    results: dict[str, list[str]] = {}
+    results_by_source: dict[str, list[str]] = {}
+    items: list[dict] = []
+    next_id = 1
 
     for feed_info in feeds:
         source_name = feed_info["name"]
         source_type = feed_info.get("type", "direct")
         label = f"{source_name} [{source_type}]" if source_type == "aggregator" else source_name
         url = feed_info["url"]
-        results[label] = []
+        results_by_source[label] = []
 
         try:
             parsed_feed = fetch_feed(url)
@@ -58,31 +102,52 @@ def collect_news(feeds: list[dict], hours: int = 24) -> dict[str, list[str]]:
             continue
 
         for entry in parsed_feed.entries:
+            if len(results_by_source[label]) >= MAX_ITEMS_PER_SOURCE:
+                break
+
             published_at = get_entry_datetime(entry)
             if published_at is not None and published_at < cutoff:
                 continue
 
-            title = (entry.get("title") or "").strip()
+            title = clean_title(entry.get("title") or "")
+            if is_junk_title(title):
+                continue
+
             link = (entry.get("link") or "").strip()
             title_key = title.lower()
 
-            if (link and link in seen_links) or (title_key and title_key in seen_titles):
+            if (link and link in seen_links) or title_key in seen_titles:
                 continue
 
             if link:
                 seen_links.add(link)
-            if title_key:
-                seen_titles.add(title_key)
+            seen_titles.add(title_key)
 
-            results[label].append(title or "(No title)")
+            published_value = (
+                published_at.isoformat()
+                if published_at
+                else (entry.get("published") or entry.get("updated") or "").strip()
+            )
+            results_by_source[label].append(title)
+            items.append(
+                {
+                    "id": next_id,
+                    "source": source_name,
+                    "title": title,
+                    "link": link,
+                    "published": published_value,
+                    "snippet": clean_snippet(entry),
+                }
+            )
+            next_id += 1
 
-    return results
+    return results_by_source, items
 
 
 def main() -> None:
     """Load feeds, collect recent unique articles, and print counts and titles per source."""
     feeds = load_feeds(FEEDS_FILE)
-    news_by_source = collect_news(feeds)
+    news_by_source, _ = collect_news(feeds)
 
     for source_name, titles in news_by_source.items():
         print(f"\n{source_name}: {len(titles)} item(s)")

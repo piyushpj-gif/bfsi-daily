@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BFSI Daily: insurance and banking news in plain language</title>
+<meta name="description" content="A daily digest of insurance and BFSI news with plain-language summaries for students and industry professionals.">
+<style>
+:root {
+  --bg: #eef2f7; --ink: #10213a; --muted: #52627a; --line: #cdd6e3; --panel: #ffffff; --accent: #10213a;
+  --c-regulatory: #6b4fbb; --c-life: #0e7c66; --c-general: #1f6fb2; --c-health: #c2410c;
+  --c-banking: #8a5a00; --c-fintech: #b03a6f; --c-markets: #4b5563;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1626; --ink: #e8eef8; --muted: #9fb0c8; --line: #263652; --panel: #14223a; --accent: #e8eef8;
+    --c-regulatory: #b9a6ff; --c-life: #4fd1b0; --c-general: #6db3f2; --c-health: #ff9a6b;
+    --c-banking: #e6b34d; --c-fintech: #f08db8; --c-markets: #9ca3af;
+  }
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; color: var(--ink); font-family: var(--sans); font-size: 1rem; line-height: 1.55; background: var(--bg); }
+.wrap { max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+.brand { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: 0.01em; color: var(--muted); }
+.date { margin: 0.35rem 0 0.25rem; font-family: var(--serif); font-weight: 700; font-size: clamp(2.3rem, 7vw, 3.9rem); line-height: 1.05; letter-spacing: -0.02em; }
+.lede { margin: 0; color: var(--muted); max-width: 34rem; }
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2rem 0 0.5rem; }
+.filters button { font: inherit; font-size: 0.9rem; padding: 0.4rem 0.9rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; }
+.filters button:hover { border-color: var(--accent); }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--c-general); outline-offset: 2px; }
+.story { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.5rem 1.5rem; padding: 1.75rem 0; border-top: 1px solid var(--line); }
+.story:first-of-type { margin-top: 1rem; }
+.cat { font-weight: 700; font-size: 0.95rem; color: var(--c); padding-top: 0.4rem; }
+.cat::before { content: ""; display: block; width: 2.25rem; height: 4px; background: var(--c); border-radius: 2px; margin-bottom: 0.5rem; }
+h2 { margin: 0 0 0.5rem; font-family: var(--serif); font-size: clamp(1.3rem, 3.4vw, 1.65rem); line-height: 1.25; }
+.summary { margin: 0 0 0.9rem; max-width: 42rem; }
+.why { margin: 0 0 0.9rem; padding-left: 0.9rem; border-left: 3px solid var(--c); max-width: 42rem; color: var(--muted); }
+.why strong { color: var(--ink); }
+.meta { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.meta a { color: var(--ink); font-weight: 600; text-underline-offset: 3px; }
+[data-cat="Regulatory"] { --c: var(--c-regulatory); } [data-cat="Life"] { --c: var(--c-life); }
+[data-cat="General"] { --c: var(--c-general); } [data-cat="Health"] { --c: var(--c-health); }
+[data-cat="Banking"] { --c: var(--c-banking); } [data-cat="Fintech"] { --c: var(--c-fintech); }
+[data-cat="Markets"] { --c: var(--c-markets); }
+.note { margin: 2.5rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); max-width: 40rem; }
+.state { padding: 2rem 0; color: var(--muted); }
+@media (max-width: 40rem) {
+  .story { grid-template-columns: 1fr; padding: 1.5rem 0; }
+  .cat { padding-top: 0; }
+  .cat::before { display: inline-block; width: 1.5rem; margin: 0 0.5rem 0.2rem 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="brand">BFSI Daily</h1>
+    <p class="date" id="date">Loading today’s news</p>
+    <p class="lede" id="lede">Insurance and banking news, explained in plain language.</p>
+  </header>
+  <nav class="filters" id="filters" aria-label="Filter stories by category"></nav>
+  <main id="list" aria-live="polite"></main>
+  <p class="note">Summaries are written by AI from the linked articles and may contain mistakes. Check the original source before relying on any detail.</p>
+</div>
+<script>
+(function () {
+  var list = document.getElementById("list");
+  var filters = document.getElementById("filters");
+  var stories = [];
+  var active = "All";
+
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function safeUrl(u) {
+    try { var p = new URL(u); return (p.protocol === "https:" || p.protocol === "http:") ? p.href : null; }
+    catch (e) { return null; }
+  }
+
+  function showState(msg) { list.replaceChildren(el("p", "state", msg)); }
+
+  function render() {
+    var shown = stories.filter(function (s) { return active === "All" || s.category === active; });
+    if (!shown.length) { showState("No stories in this category today."); return; }
+    list.replaceChildren.apply(list, shown.map(function (s) {
+      var art = el("article", "story");
+      art.setAttribute("data-cat", s.category);
+      art.appendChild(el("div", "cat", s.category));
+      var body = el("div");
+      body.appendChild(el("h2", null, s.headline));
+      body.appendChild(el("p", "summary", s.summary));
+      var why = el("p", "why");
+      why.appendChild(el("strong", null, "Why it matters: "));
+      why.appendChild(document.createTextNode(s.why_it_matters));
+      body.appendChild(why);
+      var meta = el("p", "meta");
+      meta.appendChild(document.createTextNode("Source: " + s.source + ". "));
+      var url = safeUrl(s.link);
+      if (url) {
+        var a = el("a", null, "Read the original");
+        a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+        meta.appendChild(a);
+      }
+      body.appendChild(meta);
+      art.appendChild(body);
+      return art;
+    }));
+  }
+
+  function buildFilters() {
+    var cats = ["All"];
+    stories.forEach(function (s) { if (cats.indexOf(s.category) === -1) cats.push(s.category); });
+    filters.replaceChildren.apply(filters, cats.map(function (c) {
+      var b = el("button", null, c);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(c === active));
+      b.addEventListener("click", function () {
+        active = c;
+        Array.prototype.forEach.call(filters.children, function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+        render();
+      });
+      return b;
+    }));
+  }
+
+  fetch("news.json", { cache: "no-store" })
+    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function (data) {
+      stories = (data.stories || []).filter(function (s) { return s && s.headline && s.summary; });
+      var d = new Date(data.date + "T00:00:00");
+      document.getElementById("date").textContent = isNaN(d) ? "Today’s news"
+        : d.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+      document.getElementById("lede").textContent = stories.length
+        ? stories.length + " stories from insurance and banking, explained in plain language."
+        : "Insurance and banking news, explained in plain language.";
+      if (!stories.length) { showState("No stories were published today. Check back tomorrow morning."); return; }
+      buildFilters();
+      render();
+    })
+    .catch(function () {
+      document.getElementById("date").textContent = "BFSI Daily";
+      showState("We could not load today’s news. If you are testing on your own computer, open this page through a local server instead of double-clicking the file.");
+    });
+})();
+</script>
+</body>
+</html>
