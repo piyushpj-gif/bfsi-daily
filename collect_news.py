@@ -62,6 +62,35 @@ def clean_snippet(entry: dict, max_length: int = MAX_SNIPPET_LENGTH) -> str:
     return text[: max_length - 3].rstrip() + "..."
 
 
+def split_aggregator_title(raw_title: str) -> tuple[str, str]:
+    """Split a Google News-style title into (clean_title, publisher).
+
+    Google News titles follow the pattern "Story headline - Publisher Name".
+    Returns the headline and publisher as separate strings.
+    If no " - " separator is found, returns the full title and an empty publisher.
+    """
+    # rsplit so only the last " - " is treated as the separator (handles dashes in headlines)
+    parts = raw_title.rsplit(" - ", 1)
+    if len(parts) == 2:
+        return parts[0].strip(), parts[1].strip()
+    return raw_title, ""
+
+
+def is_redundant_snippet(snippet: str, title: str, publisher: str) -> bool:
+    """Return True if the snippet, after cleaning, only repeats the title or the publisher.
+
+    Comparison is case-insensitive and ignores leading/trailing whitespace.
+    """
+    if not snippet:
+        return True
+    normalised = snippet.strip().lower()
+    if normalised == title.strip().lower():
+        return True
+    if publisher and normalised == publisher.strip().lower():
+        return True
+    return False
+
+
 def is_junk_title(title: str) -> bool:
     """Return True for empty titles or obvious boilerplate/aggregator junk."""
     if not title:
@@ -113,6 +142,15 @@ def collect_news(
             if is_junk_title(title):
                 continue
 
+            # For aggregator feeds split "Headline - Publisher" apart.
+            if source_type == "aggregator":
+                title, publisher = split_aggregator_title(title)
+                title = title.strip()
+                if is_junk_title(title):
+                    continue
+            else:
+                publisher = ""
+
             link = (entry.get("link") or "").strip()
             title_key = title.lower()
 
@@ -128,17 +166,27 @@ def collect_news(
                 if published_at
                 else (entry.get("published") or entry.get("updated") or "").strip()
             )
+
+            snippet = clean_snippet(entry)
+            if is_redundant_snippet(snippet, title, publisher):
+                snippet = ""
+
+            # Determine item source: for aggregators use the publisher extracted from the title;
+            # fall back to the feed name if no publisher suffix was found.
+            item_source = publisher if (source_type == "aggregator" and publisher) else source_name
+
             results_by_source[label].append(title)
-            items.append(
-                {
-                    "id": next_id,
-                    "source": source_name,
-                    "title": title,
-                    "link": link,
-                    "published": published_value,
-                    "snippet": clean_snippet(entry),
-                }
-            )
+            item: dict = {
+                "id": next_id,
+                "source": item_source,
+                "title": title,
+                "link": link,
+                "published": published_value,
+                "snippet": snippet,
+            }
+            if source_type == "aggregator":
+                item["via"] = source_name
+            items.append(item)
             next_id += 1
 
     return results_by_source, items

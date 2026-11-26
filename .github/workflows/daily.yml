@@ -1,0 +1,72 @@
+name: Daily BFSI digest
+
+on:
+  schedule:
+    # GitHub cron runs in UTC. 01:17 UTC is about 06:47 IST.
+    - cron: "17 1 * * *"
+    # Backup run about two hours later. It skips itself if today's digest already exists.
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Run even if today's digest already exists"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-digest
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: Check whether today's digest already exists
+        id: check
+        run: |
+          TODAY=$(date -u +%F)
+          HAVE=$(python3 -c "import json; print(json.load(open('news.json')).get('date',''))" 2>/dev/null || echo "")
+          if [ "$HAVE" = "$TODAY" ] && [ "${{ github.event.inputs.force }}" != "true" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "A digest for $TODAY already exists. Skipping."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Python
+        if: steps.check.outputs.skip != 'true'
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        if: steps.check.outputs.skip != 'true'
+        run: pip install -r requirements.txt
+
+      - name: Build the digest
+        if: steps.check.outputs.skip != 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+        run: python summarize_news.py
+
+      - name: Save news.json to the repository
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Daily digest $(date -u +%F)"
+            git push
+          fi

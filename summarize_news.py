@@ -49,41 +49,68 @@ RESPONSE_SCHEMA = {
     "required": ["stories"],
 }
 
-PROMPT_TEMPLATE = """You are curating a daily news digest for insurance and BFSI (banking, financial services, and insurance) students and professionals in India.
+PROMPT_TEMPLATE = """You are curating a daily news digest for insurance and BFSI (banking, financial services and insurance) students and professionals in India. Readers include industry experts, so accuracy matters more than anything else.
 
-From the news items below, select 8 stories following these strict rules:
+From the news items below, select 8 stories following these rules.
 
-SELECTION MIX:
-- Choose 8 stories in total.
-- Include at least 4 stories about insurance (life, general, health, IRDAI, reinsurance, bancassurance, or insurtech). If fewer than 4 insurance stories exist, fill the remaining slots with the best other BFSI stories.
-- Include at least 1 but at most 2 stories about RBI, banking, or fintech combined.
-- Ignore gold/silver prices, stock tips, celebrity news, and unrelated general company news.
-- If multiple items cover the same underlying story, pick only ONE item.
-- Order stories by importance: regulatory and IRDAI news first, then other insurance, then RBI/banking/fintech.
+SELECTION:
+- Choose exactly 8 stories.
+- Include at least 4 stories about insurance (life, general, health, IRDAI, reinsurance, bancassurance or insurtech). If fewer than 4 insurance stories exist, fill the remaining slots with the best other BFSI stories.
+- Include at least 1 and at most 2 stories about RBI, banking or fintech combined.
+- Skip routine operations such as RBI auctions, T-bill results, money market operations and bulletins, unless the item announces a significant policy or regulatory change.
+- Ignore gold and silver prices, stock tips, celebrity news and unrelated company news.
+- If several items cover the same underlying story, pick only ONE of them.
+- Order the stories by importance: regulatory and IRDAI news first, then other insurance, then RBI, banking and fintech.
+- Skip advertising campaigns, awards and sponsorships unless they have a clear regulatory or market impact.
 
-WRITING RULES — apply every rule to every field:
-1. Write every summary entirely in your own words. Do not copy any run of more than 4 consecutive words from the source text, except proper names, numbers, official titles, and exact product or scheme names.
-2. Keep every fact exactly as given in the source; do not round, estimate, or add context.
-3. Never describe a proposal or draft circular as final; use "proposed" or "draft" when the source text says so.
-4. Do not refer to any person with he, she, his, or her unless the source text itself uses that pronoun; use the person's name or job title instead.
-5. Do not use relative time phrases such as "today", "yesterday", "last year", "on Monday", "ahead of Diwali", "last quarter", or similar; use only dates explicitly stated in the text.
-6. If the source does not state whether a figure is month-on-month or year-on-year, do not specify either.
-7. Use ONLY facts present in that item's title and snippet; never invent numbers, dates, or claims.
-8. When the text gives a period or year (such as "April–September 2026" or "FY27"), include it in the summary.
-9. When the text names the publisher of a report or data (for example "a BCG-IIA report" or "RBI data"), name them in the summary.
+ACCURACY RULES (most important):
+1. Use ONLY facts present in that item's title and snippet. Never invent or guess numbers, dates, names or claims.
+2. Keep every fact exactly as given. Do not round, estimate or add context from your own knowledge.
+3. Keep standard industry terms and job titles exactly as the source uses them (for example "Appointed Actuary", "cyber insurance", "property insurance", "study groups", "credit card"). Never replace a standard term with an unusual synonym.
+4. Never describe a proposal or draft as final. Use "proposed" or "draft" when the text says so.
+5. Do not say whether an appointment, launch or change needs regulatory approval unless the text says so, and apply that condition only to the person or item the text names.
+6. If the text does not say whether a figure is month-on-month or year-on-year, do not state either.
+7. Include the period or year when the text gives one, and name the publisher of a report or data when the text names one (for example "a BCG-IIA report" or "RBI data").
+8. Do not refer to a person with he, she, his or her unless the text itself does. Use the name or job title.
+9. Do not use relative time phrases such as today, yesterday, last year, last quarter, on Monday or ahead of a festival. Use only dates stated in the text.
+
+WORDING RULES:
+- Write summaries in your own sentence structure so they are not a copy of the source. Do not copy a run of more than 8 consecutive words from the source text, except names, numbers, titles and product names.
+- Reorder and condense instead of swapping in unusual synonyms. If a rewrite would change the meaning or sound unnatural, keep the source's standard wording for that term.
+- Use plain language a first-year student can follow.
+
+HEADLINE-ONLY ITEMS:
+- Some items have an empty or repeated snippet. For those, use only the facts in the title. Write two short sentences that restate the title's facts. Do not add purposes, goals, impacts, locations or background that the title does not state. Use at most 2 such items among the 8 stories.
+- If the text says "according to a report" or names a person or body as the source of a figure, keep that attribution in both the headline and the summary (for example "reportedly").
+- Do not state who organised or ran an event unless the text says so.
+
+CATEGORY GUIDE:
+- Life: life insurance, pensions and annuities.
+- General: non-life insurance such as motor, property, travel, crop, cyber, and job-loss or income-protection cover.
+- Health: health insurance only.
+- Regulatory: rules, committees, circulars or actions by IRDAI, RBI, SEBI or the government.
+- Banking and Fintech: banks, payments and fintech.
+- Markets: funding, ownership, investments and leadership news about firms when the line of business is not stated in the text.
+
+CONSEQUENCE WORDING:
+- In why_it_matters, describe possible effects with cautious words such as can, may or could. Never present a prediction as a fact.
+- Do not start with the word "When". Vary the sentence openings across stories.
+- Name an industry concept (for example net interest margin or acquisition cost) only if the story's own facts involve it. Never introduce a technical term that the title and snippet do not support.
+- One sentence of 15 to 30 words, with a point specific to this story rather than a general statement.
 
 OUTPUT FIELDS (return strict JSON matching the schema):
 - id: exact integer id from the input items
-- headline: plain, clear headline (max 15 words)
-- summary: exactly 2 sentences with key facts first; name products and schemes by their exact names
+- headline: clear headline using standard terms, at most 15 words
+- summary: exactly 2 sentences, key facts first, product and scheme names exact
 - category: one of Life, General, Health, Regulatory, Banking, Fintech, Markets
-- why_it_matters: one sentence naming the one concept or consequence that genuinely applies to this story — name it in plain words (for example a regulatory mechanism, a type of market participant, a customer protection rule, or a financial consequence for insurers or policyholders). If no technical concept applies, state the practical effect for insurers, banks, or customers instead. Do not force a term that is not relevant. Do not use filler words like "crucial" or "valuable". Do not start with "Students".
+- why_it_matters: ONE complete sentence of 15 to 30 words with a subject and a verb. Explain what this specific story means for insurers, banks, policyholders or customers. Where one clearly applies, name the relevant industry concept (for example appointed actuary, claims settlement, solvency, underwriting cycle, loss ratio, bancassurance, or the difference between a draft and a final regulation). Never write a label or fragment such as "A financial consequence for insurers" or "A type of market participant". An example of the style, about a different topic: "When a regulator moves from draft to final rules, insurers must change their processes by the effective date, so the difference matters for compliance planning." Do not use filler words like crucial or valuable. Do not start with Students.
 
 Input items (JSON):
 {items_json}
 """
 
-REWRITE_PROMPT_TEMPLATE = """The following story summaries were found to repeat five or more consecutive words from their source text. Rewrite only the summary field for each story in entirely different words while keeping every fact exactly as given.
+
+REWRITE_PROMPT_TEMPLATE = """The following story summaries repeat eight or more consecutive words from their source text. Rewrite only the summary field for each story by changing the sentence structure and the order of information, while keeping every fact exactly as given and keeping standard industry terms and job titles unchanged. Do not replace standard terms with unusual synonyms, and do not add facts.
 
 Return strict JSON matching this structure: {{"stories": [{{"id": <integer>, "summary": "<rewritten 2-sentence summary>"}}]}}
 
@@ -198,16 +225,16 @@ def _is_skip_token(token: str, raw_token: str) -> bool:
 
 
 def find_verbatim_overlap(summary: str, source_title: str, source_snippet: str) -> bool:
-    """Return True if the summary contains a run of 5+ consecutive non-exempt source words."""
+    """Return True if the summary contains a run of 8+ consecutive non-exempt source words."""
     source_text = f"{source_title} {source_snippet}"
     source_tokens = _tokenise(source_text)
     summary_tokens = _tokenise(summary)
 
-    # Build set of all 5-grams from the source, excluding runs that are entirely skip-tokens.
+    # Build set of all 8-grams from the source, excluding runs that are entirely skip-tokens.
     source_raw = re.findall(r"\S+", source_text.lower())
     summary_raw = re.findall(r"\S+", summary.lower())
 
-    def meaningful_ngrams(raw_words: list[str], n: int = 5) -> set[tuple[str, ...]]:
+    def meaningful_ngrams(raw_words: list[str], n: int = 8) -> set[tuple[str, ...]]:
         grams: set[tuple[str, ...]] = set()
         for i in range(len(raw_words) - n + 1):
             window = raw_words[i : i + n]
@@ -222,8 +249,8 @@ def find_verbatim_overlap(summary: str, source_title: str, source_snippet: str) 
     if not source_grams:
         return False
 
-    for i in range(len(summary_raw) - 4):
-        window = summary_raw[i : i + 5]
+    for i in range(len(summary_raw) - 7):
+        window = summary_raw[i : i + 8]
         key = tuple(re.sub(r"[^a-z]", "", w) for w in window)
         if key in source_grams:
             return True
@@ -233,7 +260,7 @@ def find_verbatim_overlap(summary: str, source_title: str, source_snippet: str) 
 def check_overlap(
     stories: list[dict], items_by_id: dict[int, dict]
 ) -> list[int]:
-    """Return ids of stories whose summary has a 5-word verbatim overlap with source text."""
+    """Return ids of stories whose summary has an 8-word verbatim overlap with source text."""
     flagged: list[int] = []
     for story in stories:
         original = items_by_id.get(story["id"])
