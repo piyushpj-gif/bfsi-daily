@@ -1,77 +1,77 @@
 {
-  "date": "2026-11-27",
+  "date": "2026-11-28",
   "stories": [
     {
-      "id": 96,
-      "headline": "IRDAI sets up seven-member committee to manage policyholders protection fund",
-      "summary": "To administer and manage the Policyholders' Education and Protection Fund, a seven-member Fund Management Committee has been constituted by the IRDAI. Deepak Sood, Whole-Time Member, IRDAI, acts as the ex-officio chair of the committee, with Rajay Kumar Sinha, Whole-Time Member, IRDAI, serving as a member.",
-      "category": "Regulatory",
-      "why_it_matters": "When regulatory committees manage protection funds, insurers must align with revised administrative guidelines, so the appointed actuary and compliance teams need to monitor fund utilization rules closely.",
-      "source": "Asia Insurance Post",
-      "link": "https://asiainsurancepost.com/archives/86482"
-    },
-    {
-      "id": 106,
-      "headline": "India insurtech funding stabilises at $120 million as AI reshapes distribution",
-      "summary": "According to a BCG-IIA report, artificial intelligence is reshaping insurance distribution as the funding for India's insurtech stabilises at $120 million. Evolving technological integration across customer touchpoints continues to be witnessed by the sector.",
-      "category": "General",
-      "why_it_matters": "As technological integration reshapes distribution, insurers could face shifting acquisition costs and new underwriting efficiencies across digital channels.",
-      "source": "Asia Insurance Post",
-      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9kbDF0Rm9xeUpQYS1EOFBETkxjLXNNbnBjLUh3czJ4WlR6QTZqTGlaenMwX29ZcW1DQWxhZktTUVRhSmtxb1h1ZXpQOWw5UUxqaDRhOXJaRQ?oc=5"
+      "id": 108,
+      "headline": "IRDAI Establishes Two Study Groups to Enhance Health Insurance Claim Transparency",
+      "summary": "The Insurance Regulatory and Development Authority of India has formed two study groups focused on improving transparency in health insurance claims. These panels will examine current practices to help policyholders understand claim settlements better.",
+      "category": "Health",
+      "why_it_matters": "When regulators form study groups to examine claim transparency, insurers can expect new disclosure norms that may alter their claim settlement processes and customer communication.",
+      "source": "Moneycontrol.com",
+      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOdmZqNTlSc1NueHNJRXFDUEhJbW9qeTBveGNMN3E5VkxGclVsT3BtYkR6c3dpMnhJMy1ZRFdoZnF2ZUVBd1czTnJ2NTUzczFSY0J4eVBrQWhqakYyZHl0dHpJaE9YWDVWM0VaMlMtTWw0eXFwZjZjWG1ZQU1XbGwwWnkwUWVqT0dSWS1WX2ZKdnV5RW81UHJObUNZX01yR2ZFVkN3Z2NkeGN2R0k5aXVnVWZid3NsVjdCOWdETDczTTFHVFNkUGpDVjYwYklNcWhneldPTG1mMU5lWFdQ?oc=5"
     },
     {
       "id": 107,
-      "headline": "Blackstone brings in ex-HDFC Ergo CEO Ritesh Kumar as co-investor in insurance venture",
-      "summary": "A report indicates that an India insurance venture has brought in ex-HDFC Ergo CEO Ritesh Kumar as a co-investor by Blackstone. Strategic oversight for the upcoming operations is aimed to be strengthened by this leadership addition.",
-      "category": "General",
-      "why_it_matters": "Leadership transitions involving experienced executives can alter market positioning, prompting competitors to reassess their own underwriting capacity and strategic growth plans.",
-      "source": "InsuranceAsia News",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQckp6STEzRjB6SVo4TkxvTGNBZDlDS3RwWkNRaGt2dEIxeDlldEM2MkJfc0FmaHRWZTlXQjU4cnluRnBjZUNIay1peUNvcWZ1OEloWndONlY0bWs0eF94VmhkZE1ZZTJjeFE3ZmRKQngwWnZPMTg1cEJfc0IxdWQ3YTJ5M3o1dU80UVlUSnBaSHJBT3F3NTNaNGt3aGxSdk5UN25RakFHdFh2Y0p6WExrV1kxdmtZZkNPUkhrVzFyUXNoczRtbDVtcTBB?oc=5"
+      "headline": "Insurers and Brokers Seek Modifications to IRDAI Distribution Framework Proposal",
+      "summary": "Insurance companies and brokers have asked for changes to the proposed overhaul of the distribution framework by the Insurance Regulatory and Development Authority of India. Industry participants want adjustments made before the final rules take effect.",
+      "category": "Regulatory",
+      "why_it_matters": "Changes requested by market participants during a consultation period can influence acquisition costs and commission structures across the entire insurance distribution network.",
+      "source": "ThePrint",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNSDFzcC1mVk8ySFhXSy0tbVZQa0hFR09yWjFzU203cWVXakhQdHNhcVVNazd4NkpvaGxEM1pfM0dRSkQxMi0xdHppTTJVRk5odmNMSm8xMElCb0dId2lMZldPSmZXMU5vRnBPT1ZBYnU3MWhGLU5hT0s0aXhsRFBEbEtYTU5NSE9FSkZCRlViZF9ZUWFCbW5OU3lXTktzbVAwZV8wRjJOcTJiOGlZWFpSQmFaWFQxNklBWUNvTkNSMk16MEVWSHV2ZmJR0gHPAUFVX3lxTE5xY2hpZThPZndERDRpTHNIelVlZ2NKZXNvTEFKRnNUcDBIS09ubVlTOTZ0RFotZmRfN3V5U1VuWkVmNjE4UTcwQUhFRVZuUnNXTy1pR1RMdWxZaEZ0RzJSYkp1aFJEY1Ffc0lYU0prUWx6d0MtTG85d3NETXphNURzTllEZ1l3N3VMRl82Zk4zZjZyT3F6M05DNXpYbXNNRzgyNkdtUDFfX09FQ0VNQllCdUV0Ml9hejlnZEMyd1YzOUdaWm50dDVLQWVvSEptQQ?oc=5"
     },
     {
-      "id": 111,
-      "headline": "India Gift City premiums top US$1 billion in H1 FY27, report says",
-      "summary": "India's Gift City premiums top US$1 billion in H1 FY27, according to a report. International financial services center operations continue to expand cross-border insurance business.",
+      "id": 112,
+      "headline": "Policybazaar Introduces Rooftop Solar Panel Insurance Coverage for Clean Energy",
+      "summary": "Policybazaar has launched a dedicated insurance product specifically designed to cover rooftop solar panels against various risks. The new policy aims to protect residential and commercial solar installations from potential damage.",
       "category": "General",
-      "why_it_matters": "Rising cross-border premium volumes may influence overall solvency margins and reinsurance arrangements for participating insurers operating within the hub.",
-      "source": "InsuranceAsia News",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQWnp3akJSQVdFQ0tUV25PVTNsTlZ5T2JmSGpsNUZLLTBZWm5XXzcyVFJPYnYxcGJxZDJEbF8wSHZ3c3ZaQVlnMzI1eWgxcVp1Z1A0dTV6TGp5M1dPa2dyaXNmQnFicFJobjVhNXJpanB5WEgxZmx0MWhhZlNXUFBxclBXODdfVlBSQnBjcw?oc=5"
+      "why_it_matters": "As renewable energy installations grow, specialized property insurance products can help underwriters capture emerging risks in the expanding green infrastructure market.",
+      "source": "Insurance Edge",
+      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPQS0yX09TNjNBTElTaGotalFLUkpzTVBSblVMMGptYlA1UXg1UlFYN3g2bDFOTEJpeWJRNUFOZklrRXVJaVI1Z0dhMlhfSzVOWWUwd3ktRy0tUXllVDJxWllaQjVMTjBPNFBabFgxaXVXazZjcURtY3AzVUhJaE9GR2tvTnUzaWFJSld1V2JZZ05BRWNo?oc=5"
     },
     {
-      "id": 108,
-      "headline": "Paws, premiums, and OPD puzzle offer new insights into pet insurance gaps",
-      "summary": "Pet insurance offerings face coverage gaps particularly concerning outpatient department expenses and specific premium structures. Policyholders must navigate various product limitations when selecting veterinary financial protection.",
-      "category": "General",
-      "why_it_matters": "Expanding niche product categories like pet cover may force insurers to refine their loss ratio projections and claims settlement procedures.",
-      "source": "Livemint",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOOUZuQkhKUEhnbWtjS2JlOEE3Zkp0Ny1UTFBKRUo3LW1vR1MwMUtHb0g5VFBfelZ2SF9pWWdnendaTkI5cFpSby1sRGZaOG5uTGZmSnNIQ3FLOUN3c2poejFwYjI1UGlVMFZ5eDBsTERsUTZSdGs2YnlSTU9BN1pQWm1XX3N5LU5Ua3dNa0dDRkR0ZTVKekhvVW02MThMWGNONkdYdi1hYzlYa0dMV0lRenlJWnd3RHZnV2tv0gHAAUFVX3lxTE5nSmV2akp5YTBQLUlFMk5UVmtnYjh3Z3FTMUs4dmxsVmhzcHA0TjREbTZvQWVGZE9uS1ZxNUNWSE9sUlhXdEtKTWcydjVBRHNwbE1wakUxVVZMbjFySjRRODJWQl9ub2xWNVVyN01oc1puSDFEcDFod0hOM25JbkpXRFlndHVOcE5ON1AtV3hzbzBkdmY3QnlTOHVlSE01UG1KT3hZTGtLaVIwdTB2cmhNU0c1aGw0WkxicVk5Q29Dag?oc=5"
+      "id": 118,
+      "headline": "ManipalCigna Launches INFINIX Health Plan with Unlimited Sum Insured Options",
+      "summary": "ManipalCigna Health Insurance has released the INFINIX plan to address changing health insurance requirements among consumers. The new offering provides an unlimited sum insured along with enhanced flexibility for policyholders.",
+      "category": "Health",
+      "why_it_matters": "Offering unlimited sum insured options can significantly increase underwriting risk and loss ratios if medical inflation outpaces premium pricing models.",
+      "source": "The Tribune",
+      "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxNRGZ6N2hGa2ZaME5td1BEcFNjTlRPTFltQmg4SUNJRlVkZnhuQlpKd0FRb2lKY3hIVC1ZVHlTbGs1b3htNWxfQVFPYzYwekVnc2xpWUNrdFZiSVFLZUVvNzdrREtUYmhzY2k2bUNlQ0wzbGZ1UWtxbGNwMGtWTW5rck9WblhUWUI0dDBwV0hiV1prb2JKbGI4VElJOGhTTkp2bmdhZ3RwMWlZVGpaQXdBZ2xEb3dHZWlheGNvZFU1REUzMVMxUWhqb1gtVDRoWjFtdkNoR0hlVVJmLXBweUFtdnhNWS1yRXBzM0czVDNWVlJNQVZCcWlxWVNjcmRhQdIBgwJBVV95cUxNMUtUVS16WWNBaHNpS2RTaHh3QUtwRXFQVFlJaFN5Rm1tZWZweG5tVy1neDNvLUp2MmRGaGU3S3BDaW90Q2VOTUtJY0RvTXVaNHhSckdFcGcxVUhPYXQtQW90cXRNT08wWTEzZHFsaEVXd2NKay1UNDRqeGhYUzRrNEJhWWhQM2hMcHV6WXFSWi11bkkyRTl3b0R6VTlYVHF0MjFUSlRwYVVxSGZHZkZ2SUcxczBwa2xVbUFiMkxkT2tjbTVQUUFVZ3h4NUFIYjFLdlRxblc5VGJYLVp6M2tic0xvcFAyRVNreTRWR2xCb0dzNmdhNXcySVJyM3hBX3ZHd0FR?oc=5"
     },
     {
-      "id": 11,
-      "headline": "NSE receives RBI nod for corporate bond index futures to deepen debt market",
-      "summary": "Approval has been given by the Reserve Bank of India to the National Stock Exchange of India for introducing futures contracts on corporate bond indices. Additional risk management instruments are provided to investors while strengthening India's fixed-income derivatives market through this initiative.",
+      "id": 117,
+      "headline": "Ageas Federal Life Insurance Introduces Wealth Premier Plan for Long-Term Growth",
+      "summary": "Ageas Federal Life Insurance has rolled out the Wealth Premier plan aimed at facilitating long-term wealth creation for customers. The new product combines insurance protection with investment opportunities tailored for individual financial goals.",
+      "category": "Life",
+      "why_it_matters": "New unit-linked or savings products can help life insurers improve their margins and attract capital as consumer demand shifts toward long-term investment vehicles.",
+      "source": "Indiablooms",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQLWRrRFRQNjZMVXdQUHB6a0xaY2NDN1kzUy1JOTJEWXpYQnp0U2tLYksxcEJwLThuOERYVHRkNWpndmhQQ1BRbGEtZ2FpT1FsZmFlWEVfNThLdm9YYXl4TjZOeG5oM01pTFFTb2hWR3hydGhoVnZpSmktRWhZdldxQkVtck5yZWJ1aGpKdnAxbmJNbm1fUWhWV2VkVWdveFplZXdmYS15OVlUTzg0emJrRHYtUDJEQ08xWmh4a3Z3WW5pSEdhdzc2dndkTQ?oc=5"
+    },
+    {
+      "id": 14,
+      "headline": "RBI Permits White Label ATM Operators to Source Cash from Multiple Banks",
+      "summary": "Scheduled commercial banks, cooperative banks, and regional rural banks are now permitted by the Reserve Bank of India to supply cash to White Label ATM operators. Greater flexibility in cash replenishment arrangements is provided because operators are not limited to their sponsor banks.",
       "category": "Banking",
-      "why_it_matters": "New derivative instruments can enhance portfolio hedging capabilities for banks and institutional investors, thereby altering debt market liquidity.",
+      "why_it_matters": "Allowing multiple banking partners can lower cash replenishment costs and improve cash availability for automated teller machines in semi-urban and rural areas.",
       "source": "Economic Times BFSI",
-      "link": "https://bfsi.economictimes.indiatimes.com/articles/nse-receives-rbi-nod-for-corporate-bond-index-futures-aims-to-deepen-debt-market/136206207"
+      "link": "https://bfsi.economictimes.indiatimes.com/articles/rbi-allows-white-label-atm-operators-to-tie-up-with-multiple-banks-for-cash-supply/136226026"
     },
     {
-      "id": 17,
-      "headline": "NBFC dependence on bank borrowings needs monitoring over systemic concerns, RBI says",
-      "summary": "From 40 per cent at end-March 2022 down to 34.1 per cent at end-March 2026, the share of debentures experienced a steady decline. Up from 35.3 per cent in 2022, borrowings from banks nearly reached 40 per cent at end-March 2026.",
+      "id": 115,
+      "headline": "Union Bank of India Targets 500 Robotic Processes by Financial Year 2028",
+      "summary": "Union Bank of India has announced plans to implement 500 robotic processes by the end of fiscal year 2028. The initiative forms part of the lender's broader strategy to automate routine operational tasks.",
       "category": "Banking",
-      "why_it_matters": "High bank concentration in non-banking financial company funding could create systemic risks that may impact lending rates and net interest margins.",
-      "source": "Economic Times BFSI",
-      "link": "https://bfsi.economictimes.indiatimes.com/articles/nbfcs-dependence-on-bank-borrowings-needs-monitoring-over-possible-systemic-concerns-rbi/136206126"
+      "why_it_matters": "Scaling robotic process automation can reduce operational expenses and improve turnaround times for loan processing and customer service requests across bank branches.",
+      "source": "Elets BFSI",
+      "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE4yb2NMbC1uQlFCcE9BRFZJMzFnUk1zUmd4ckdsUUtuOVBYVjZtR1JJc2hPdHZKYlhObE9lSUh1dkdfVEp3NURha21Ia1FCLVFaUXpNQThWc1liUEVBMkdhRGZOWnFuQQ?oc=5"
     },
     {
-      "id": 50,
-      "headline": "Job insurance may help tech workers deal with financial crisis amid AI layoffs",
-      "summary": "Through November, more than 2 lakh tech workers globally lost their jobs. Temporary financial support may be provided in India by job-loss insurance, which is typically an add-on.",
-      "category": "General",
-      "why_it_matters": "Rising redundancy risks can drive demand for specialized protection add-ons, requiring insurers to carefully evaluate their underwriting criteria for employment-linked covers.",
-      "source": "Mint Money",
-      "link": "https://www.livemint.com/money/fearing-layoff-due-to-ai-job-insurance-may-help-you-deal-with-financial-crisis-check-if-you-are-eligible-11795678903574.html"
+      "id": 103,
+      "headline": "JPMorgan Chase Report Warns Twenty-Four Million Global Jobs Face AI Displacement",
+      "summary": "Globally, twenty-four million jobs might be endangered by artificial intelligence over the next five years, according to a JPMorgan report. Approximately two percent of payrolls would be affected annually by this anticipated displacement rate.",
+      "category": "Fintech",
+      "why_it_matters": "Rapid workforce automation can alter employment patterns and affect retail loan repayment capacity for financial institutions exposed to consumer credit portfolios.",
+      "source": "Asia Insurance Post",
+      "link": "https://asiainsurancepost.com/archives/86494"
     }
   ]
 }
